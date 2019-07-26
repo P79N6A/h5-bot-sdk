@@ -1,7 +1,7 @@
 {
-  "name": "h5-bot-sdk",
+  "name": "@baidu/h5-bot-sdk",
   "version": "1.0.0",
-  "description": "H5 BOT APP JS SDK",
+  "description": "DuerOS H5 BOT JS SDK",
   "main": "lib/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
