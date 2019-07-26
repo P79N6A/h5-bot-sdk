@@ -1,15 +1,24 @@
 {
   "name": "h5-bot-sdk",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "H5 BOT APP JS SDK",
+  "main": "lib/main.js",
   "scripts": {
-    "build": "echo \"Please implement your build script and modify scripts.build section in package.json\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildSingleFile": "webpack --config webpack.config.js",
+    "buildModule": "babel main.js --out-dir lib",
+    "build": "npm run buildSingleFile && npm run buildModule"
   },
-  "repository": {
-    "type": "git",
-    "url": "ssh://zhanggang@icode.baidu.com:8235/baidu/duer/h5-bot-sdk"
-  },
-  "author": "zhanggang",
-  "license": "UNLICENSED"
+  "author": "dengxuening",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.6"
+  }
 }
