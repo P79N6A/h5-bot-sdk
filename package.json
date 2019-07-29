@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildSingleFile": "webpack --config webpack.config.js",
     "buildModule": "babel main.js --out-dir lib",
-    "build": "npm run buildSingleFile && npm run buildModule && git add lib dist && git commit -m '更新发布代码'"
+    "build": "npm run buildSingleFile && npm run buildModule"
   },
   "author": "dengxuening",
   "license": "ISC",

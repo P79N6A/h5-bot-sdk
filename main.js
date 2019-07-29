@@ -61,7 +61,6 @@ class BotApp {
     }
 
     _getJSBridge(cb) {
-        const self = this;
         if (window.WebViewJavascriptBridge) {
             cb(window.WebViewJavascriptBridge);
         } else {

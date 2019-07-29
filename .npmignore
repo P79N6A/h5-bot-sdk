@@ -1,6 +1,5 @@
 node_moduels/
 example/node_modules
-src/
 .idea/
 .vscode/
 .git/
@@ -10,3 +9,5 @@ build_ci.sh
 ci.yml
 fis-conf.js
 push.sh
+.DS_Store
+Thumbs.db
