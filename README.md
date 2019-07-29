@@ -240,7 +240,7 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
     ```
 
 
-##BotApp.onHandleIntent(callback)
+## BotApp.onHandleIntent(callback)
 意图下发。开发者在DBP平台上面开发的意图，在匹配到对应用户query之后,会封装对应意图成为Intent下发下来。
 可通过回调函数参数中的`intent.name`来确定意图名称，之后开发对应的逻辑。同时还可以通过`intent.slots`解析参数。
 > DBP开放平台：<https://dueros.baidu.com/dbp>
