@@ -334,10 +334,10 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
 正常情况下交互都是由服务端决定的，比如问“西藏天气怎么样”则小度反问“西藏哪个城市的？不同城市的天气差别还是挺大的。”，但存在一些场景服务端因为信息缺乏，不能完全确定交互过程，需要由设备端配合来驱动用户交互过程。例如，在抽奖游戏中，H5页面上展示了2个宝箱，用户说“选择第一个”，服务端无法可能无法确定“第一个”或者“第二个”分别对应哪个宝箱，因此需要调用本方法来定义。
 
 使用案例：抽奖游戏<br>
-H5：展示两个宝箱
+H5：展示两个宝箱<br>
 H5：调用`speak('你要打开哪一个宝箱')`<br>
 H5：调用`listen()`进入聆听态<br>
-H5：调用BotApp.updateUiContext([(utterances="第一个", url="{url1}"), (utterances="第二个", url="{url2}")])<br>
+H5：调用updateUiContext([(utterances="第一个", url="{url1}"), (utterances="第二个", url="{url2}")])<br>
 用户：“第二个”<br>
 服务端：...后续逻辑
 
@@ -382,7 +382,7 @@ H5：调用BotApp.updateUiContext([(utterances="第一个", url="{url1}"), (utte
 > 参考：[自定义交互元素]("https://github.com/dueros/AndroidBotSdkDemo")
 
 ## BotApp.onClickLink(callback)
-ClickLink事件下发。ClickLink是一种Directive，用户新增自定义交互(updateUiContext())之后，云端会解析用户定义的交互，下发对应的指令。例如通过`updateUiContext(data)`新增自定义交互之后DuerOS会通过此接口下发上面定义的url。
+ClickLink事件下发。ClickLink是一种Directive，用户新增自定义交互(`updateUiContext()`之后，云端会解析用户定义的交互，下发对应的指令。例如通过`botApp.updateUiContext(data)`新增自定义交互之后DuerOS会通过此接口下发上面定义的url。
 
 如果用户引用系统内建自定义类型，用户query中可以包含参数，例如"*输入北京*"，这个query中*北京*可以被解析成参数，放到后面`params`中下发。
 >系统内建类型参考：见附表
@@ -416,14 +416,14 @@ ClickLink事件下发。ClickLink是一种Directive，用户新增自定义交�
 
     callback(*Function*)：当收到SDK收到DuerOS下发的屏幕导航事件时，本函数会被调用，参数是一个枚举型的值，可能是一下几种：
 
-    NAV_SCROLL_LEFT(列表向左滚动)，
-    NAV_SCROLL_RIGHT(列表向右滚动)
-    NAV_SCROLL_UP(列表向上滚动)
-    NAV_SCROLL_DOWN(列表向下滚动)
-    NAV_NEXT_PAGE(下一页)
-    NAV_PREVIOUS_PAGE(上一页)
-    NAV_GO_BACK(返回上一页)
-    NAV_GO_HOMEPAGE(返回主页);
+    NAV_SCROLL_LEFT(列表向左滚动)<br>
+    NAV_SCROLL_RIGHT(列表向右滚动)<br>
+    NAV_SCROLL_UP(列表向上滚动)<br>
+    NAV_SCROLL_DOWN(列表向下滚动)<br>
+    NAV_NEXT_PAGE(下一页)<br>
+    NAV_PREVIOUS_PAGE(上一页)<br>
+    NAV_GO_BACK(返回上一页)<br>
+    NAV_GO_HOMEPAGE(返回主页)<br>;
 
 * 示例
 
