@@ -44,35 +44,10 @@ const botApp = new BotApp({
 });
 ```
 
-> 建议开发者通过后端接口生成此配置信息。在开发调试阶段可采用如下方式快速这样生成MD5：
+> 建议开发者通过后端接口生成此配置信息。在开发调试阶段可采用如下方式快速生成MD5：
 > ```bash
 > md5 -s "string"
 > ```
-
-## BotApp.getRegisterResult(callback)
-BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用本方法来获取注册结果，例如oauth授权后的accessToken
-
-* 参数
-
-    callback(*Function*)：SDK获取到注册结果之后会调用此回调函数，此回调函数接收一个参数接收注册结果。其schema如下：
-
-    ```json
-    {
-        "accessToken": "{{string}}"
-    }
-    ```
-
-* 示例
-
-    ```javascript
-    botApp.getRegisterResult(function (data) {
-         console.log(data);
-        // 打印结果如下：
-        {
-            accessToken: '21.15a2c2cd345816f2e51f9eae6e3d1f03.2592000.1566035530.2050908969-9943593'
-        }
-    })
-    ```
 
 ## BotApp.requireLinkAccount()
 接入度秘上的H5应用，如有登录需要，必须和百度的账号体系进行绑定，此接口用来在度秘上发起账号绑定流程。
@@ -124,8 +99,33 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
     })
     ```
 
+## BotApp.getRegisterResult(callback)
+BotAPP SDK初始化之后，SDK内部会进行身份校验、注册等操作，开发者可使用本方法来获取注册结果，如果已经绑定过百度账号，则能获取到oauth授权后的accessToken。
+
+* 参数
+
+    callback(*Function*)：SDK获取到注册结果之后会调用此回调函数，此回调函数接收一个参数接收注册结果。其schema如下：
+
+    ```json
+    {
+        "accessToken": "{{string}}"
+    }
+    ```
+
+* 示例
+
+    ```javascript
+    botApp.getRegisterResult(function (data) {
+         console.log(data);
+        // 打印结果如下：
+        {
+            accessToken: '21.15a2c2cd345816f2e51f9eae6e3d1f03.2592000.1566035530.2050908969-9943593'
+        }
+    })
+    ```
+
 ## BotApp.requireCharge(data)
-在度秘上的H5应用可通过本方法发起支付，当用户在度秘上支付成功后会回调本SDK中的`onChargeStatusChange(callback)`的`callback`回调函数，开发者可在回调函数中添加自己的业务逻辑。
+H5应用可通过本方法发起支付，当用户支付成功后会回调本SDK中`onChargeStatusChange(callback)`中的`callback`函数，开发者可在回调函数中添加自己的业务逻辑。
 
 对于用户支付成功的订单，会有服务端的订单通知接口，开发者应以该接口的订单支付成功通知为最终数据。
 
@@ -384,8 +384,8 @@ H5：调用updateUiContext([(utterances="第一个", url="{url1}"), (utterances=
 ## BotApp.onClickLink(callback)
 ClickLink事件下发。ClickLink是一种Directive，用户新增自定义交互(`updateUiContext()`之后，云端会解析用户定义的交互，下发对应的指令。例如通过`botApp.updateUiContext(data)`新增自定义交互之后DuerOS会通过此接口下发上面定义的url。
 
-如果用户引用系统内建自定义类型，用户query中可以包含参数，例如"*输入北京*"，这个query中*北京*可以被解析成参数，放到后面`params`中下发。
->系统内建类型参考：见附表
+如果用户引用*系统内建自定义类型*，用户query中可以包含参数，例如"*输入北京*"，这个query中*北京*可以被解析成参数，放到后面`params`中下发。
+>系统内建类型参考：见下方附表
 
 * 参数
 
