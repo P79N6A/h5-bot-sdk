@@ -125,7 +125,7 @@ BotAPP SDK初始化之后，SDK内部会进行身份校验、注册等操作，�
     ```
 
 ## BotApp.requireCharge(data)
-H5应用可通过本方法发起支付，当用户支付成功后会回调本SDK中`onChargeStatusChange(callback)`中的`callback`函数，开发者可在回调函数中添加自己的业务逻辑。
+H5应用可通过本方法发起收款，当用户支付成功后会回调本SDK中`onChargeStatusChange(callback)`中的`callback`函数，开发者可在回调函数中添加自己的业务逻辑。
 
 对于用户支付成功的订单，会有服务端的订单通知接口，开发者应以该接口的订单支付成功通知为最终数据。
 
