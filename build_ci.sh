@@ -12,11 +12,15 @@ export LANGUAGE=en_US.UTF-8
 export PATH=$NODEJS_BIN_LATEST:$PATH
 
 echo '**** CI begin ****'
-npm install
-npm run buildSingleFile
+# npm install
+# npm run buildSingleFile
 mkdir output
 mkdir output/sdk
-cp dist/* output/
+mkdir output/html
+cp dist/* output/sdk
+cp example/*.html output/html/
 cd output
 tar -zcf sdk.tar.gz sdk
+tar -zcf html.tar.gz html
+rm -rf html sdk
 echo '**** CI finish ****'
