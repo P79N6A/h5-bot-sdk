@@ -4,21 +4,21 @@
 
 一个H5应用接入到度秘需要哪些步骤？
 
-* 创建一个技能，https://dueros.baidu.com/dbp/bot/index#/addbot/0，选择“自定义”，输入后“确定”，将技能ID发给度秘对接技术
+* 创建一个技能，<https://dueros.baidu.com/dbp/bot/index#/addbot/0>，选择“自定义”，输入后“确定”，将技能ID发给度秘对接技术
 * 集成本SDK，详见下方**BotApp的初始化**
-* 如开发者有登录的需求，账号关联流程详见BotApp.requireLinkAccount
-* 如开发者有支付的需求，详见BotApp.requireCharge
+* 如开发者有登录的需求，账号关联流程详见**BotApp.requireLinkAccount**
+* 如开发者有支付的需求，详见**BotApp.requireCharge**
 
 ## BotApp的引入
 从以下两种方法中选出一种引入BotAppSDK
 
-* 方法一：通过script标签引入
+* 方法一：通过script标签引入(支持https)
 
 ```html
-<script src="https://duer.bdstatic.com/saiya/sdk/h5-bot-sdk.1.0.0.js"></script>
+<script src="http://duer.bdstatic.com/saiya/sdk/h5-bot-sdk.1.0.0.js"></script>
 ```
 然后可以在全局环境下获取到`BotApp`对象
-> 在webpack下使用模块化开发的形式如何引入？ 
+> 在webpack下使用模块化开发的形式如何引入？
 > 参考webpack配置文件中的 [externals配置](https://webpack.js.org/configuration/externals/#externals)
 
 * 方法二(百度公司内网环境下)：通过npm包引入
@@ -54,7 +54,7 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
 
 * 参数
 
-	callback(*Function*)：SDK获取到注册结果之后会调用此回调函数，此回调函数接收一个参数接收注册结果。其schema如下：
+    callback(*Function*)：SDK获取到注册结果之后会调用此回调函数，此回调函数接收一个参数接收注册结果。其schema如下：
 
     ```json
     {
@@ -64,15 +64,15 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
 
 * 示例
 
-	```javascript
-    botApp.getRegisterResult(function (data) {	
+    ```javascript
+    botApp.getRegisterResult(function (data) {
          console.log(data);
         // 打印结果如下：
         {
             accessToken: '21.15a2c2cd345816f2e51f9eae6e3d1f03.2592000.1566035530.2050908969-9943593'
         }
     })
-	```
+    ```
 
 ## BotApp.requireLinkAccount()
 接入度秘上的H5应用，如有登录需要，必须和百度的账号体系进行绑定，此接口用来在度秘上发起账号绑定流程。
@@ -248,7 +248,7 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
 * 参数
 
     callback(Function)：SDK收到DuerOS解析的意图后会回调此函数，开发者可使用解析结果开发相关逻辑。callback函数接收一个参数，其schema如下：
-    
+
     ```json
     {
         "token":"{{STRING}}",
@@ -313,7 +313,7 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
 * 参数
 
     data(*string*)：要进行播报的TTS文字。
-    
+
     callback(*Function*)：TTS播放完毕后回调此函数，本函数没有参数。
 
 * 示例
@@ -327,42 +327,37 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
         // 播报完毕
     }))
     ```
-    
+
 ## BotApp.updateUiContext(data, [,callback])
-本接口定义的功能，设备端可以用来实现自定义的用户交互过程。
+本接口定义通用的自定义用户交互能力，设备端可以自主实现所希望的交互过程。
 
-正常情况下交互都是由服务端决定的，比如问“西藏天气怎么样”则小度反问“西藏哪个城市的？不同城市的天气差别还是挺大的。”，但存在一些场景服务端因为信息缺乏，不能完全确定交互过程，需要由设备端配合来驱动用户交互过程。例如，用户说“打电话给张三”，取决于只有一个张三还是多个张三，交互过程会不一样（直接打电话或者是询问给哪个张三打电话），但通讯录信息往往只有设备上有，服务端无法确定具体是哪个交互过程。本接口定义通用的自定义用户交互能力，设备端可以自主实现所希望的交互过程。
+正常情况下交互都是由服务端决定的，比如问“西藏天气怎么样”则小度反问“西藏哪个城市的？不同城市的天气差别还是挺大的。”，但存在一些场景服务端因为信息缺乏，不能完全确定交互过程，需要由设备端配合来驱动用户交互过程。例如，在抽奖游戏中，H5页面上展示了2个宝箱，用户说“选择第一个”，服务端无法可能无法确定“第一个”或者“第二个”分别对应哪个宝箱，因此需要调用本方法来定义。
 
-使用案例1：打电话场景<br>
-用户：“打电话给张三”<br>
-服务端：Phonecall指令(姓名=张三)<br>
-设备端：匹配两个张三，显示二选一的界面<br>
-设备端：SpeakRequested事件(content="为您找到以下联系人，您要拨打哪一个")<br>
-服务端：Speak指令(mp3="为您找到以下联系人，您要拨打哪一个")<br>
+使用案例：抽奖游戏<br>
+H5：展示两个宝箱
+H5：调用`speak('你要打开哪一个宝箱')`<br>
+H5：调用`listen()`进入聆听态<br>
+H5：调用BotApp.updateUiContext([(utterances="第一个", url="{url1}"), (utterances="第二个", url="{url2}")])<br>
 用户：“第二个”<br>
-设备端：上报ListenStarted事件，InteractionState([(utterances="第一个", url="contact://1"), (utterances="第二个", url="contact://2")])<br>
-服务端：Phonecall指令(姓名=张三, ContactIndex=2)<br>
-设备端：SpeakRequested事件(content="正在拨打电话")<br>
-服务端：Speak指令(mp3="正在拨打电话")<br>
-设备端：拨打电话<br>
+服务端：...后续逻辑
 
 * 参数
 
     data(*Object*)：要上传的端状态数据，其schema如下
     ```javascript
     {
-		"enableGeneralUtterances": "{{Boolean}}",
-		"hyperUtterances": [
-			{
-		        "url": "{{string}}", // 用于确定用户query的url
-		        "utterances": "{[{{string}}]}", // 支持的用户话术集合
-		        "type": "{{ENM}}", // 枚举类型，自定义类型为link,系统还提供内建类型 input,select等等
-		        "parameters: {} // 携带的参数
-		    }
-		]
-	}
+        "enableGeneralUtterances": "{{Boolean}}",
+        "hyperUtterances": [
+            {
+                "url": "{{string}}", // 用于确定用户query的url
+                "utterances": "{[{{string}}]}", // 支持的用户话术集合
+                "type": "{{ENM}}", // 枚举类型，自定义类型为link,系统还提供内建类型 input,select等等，具体见下方附表
+                "parameters: {} // 携带的参数
+            }
+        ]
+    }
     ```
-    
+
     callback(*Function*)：当本事件上报发起后本函数会被回调，接收一个参数，表示是否成功发起请求
 
 * 示例
@@ -375,7 +370,7 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
                 utterances: ['选择百度'],
                 type: 'link',
                 parameters: {}
-	        }
+            }
         ]
     };
     botApp.updateUiContext(data, function (result) {
@@ -385,7 +380,7 @@ BotAPP SDK初始化之后，SDK内部会进行注册操作，开发者可使用�
     });
     ```
 > 参考：[自定义交互元素]("https://github.com/dueros/AndroidBotSdkDemo")
-    
+
 ## BotApp.onClickLink(callback)
 ClickLink事件下发。ClickLink是一种Directive，用户新增自定义交互(updateUiContext())之后，云端会解析用户定义的交互，下发对应的指令。例如通过`updateUiContext(data)`新增自定义交互之后DuerOS会通过此接口下发上面定义的url。
 
